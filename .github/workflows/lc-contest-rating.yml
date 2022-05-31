@@ -1,0 +1,27 @@
+name: LeetCode Contest Rating Screenshot
+on:
+  push:
+  schedule:
+    - cron: "0 8 * * *"
+jobs:
+  download-Screenshot:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      - run: npm install
+      - run: node index.js
+      - name: Check if there is new screenshot
+        id: verify_diff
+        run: |
+          git diff --quiet lc.png || echo "::set-output name=new_screenshot_exist::true"
+      - name: Commit files
+        if: steps.verify_diff.outputs.new_screenshot_exist == 'true'
+        run: |
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add .
+          git commit -m "Add new screenshot"
+          git push origin master
