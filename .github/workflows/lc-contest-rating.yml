@@ -24,4 +24,4 @@ jobs:
           git config --local user.name "github-actions[bot]"
           git add .
           git commit -m "Add new screenshot"
-          git push origin master
+          git push -f origin master
