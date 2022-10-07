@@ -12,7 +12,7 @@ const puppeteer = require('puppeteer');
     });
     const page = await browser.newPage();
     await page.goto('https://leetcode.com/hongsuzu/');
-    await page.waitForTimeout(2000);
+    await page.waitForTimeout(10000);
     await page.screenshot({path: 'lc.png', clip: {x: 1018, y: 72, width: 421, height: 204}});
     console.log(new Date().toUTCString());
     await browser.close();
